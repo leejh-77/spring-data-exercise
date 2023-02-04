@@ -9,9 +9,13 @@ import org.springframework.transaction.annotation.Transactional
 class BookSubService(
     private val repository: BookRepository
 ) {
+    private var counter = 0
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     fun removeBook(book: Book) {
         this.repository.delete(book)
+        if (counter++ == 5) {
+            throw Error("throw error")
+        }
     }
 }

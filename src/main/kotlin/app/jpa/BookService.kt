@@ -11,8 +11,9 @@ class BookService(
 ){
 
     @Transactional
-    fun saveBook(book: Book) {
+    fun removeAllBooks() {
         val books = this.repository.findAll()
+        this.repository.save(Book("new book", "new book for error test"))
         books.forEach {
             bookSubService.removeBook(it)
         }
