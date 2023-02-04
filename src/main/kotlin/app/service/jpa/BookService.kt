@@ -1,4 +1,4 @@
-package app.jpa
+package app.service.jpa
 
 import app.model.Book
 import org.springframework.stereotype.Service
@@ -11,7 +11,7 @@ class BookService(
 ){
 
     @Transactional
-    fun removeAllBooks() {
+    fun removeAll() {
         val books = this.repository.findAll()
         this.repository.save(Book("new book", "new book for error test"))
         books.forEach {

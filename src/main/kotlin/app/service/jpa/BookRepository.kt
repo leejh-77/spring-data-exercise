@@ -1,4 +1,4 @@
-package app.jpa
+package app.service.jpa
 
 import app.model.Book
 import org.springframework.data.jpa.repository.JpaRepository

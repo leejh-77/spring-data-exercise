@@ -38,3 +38,7 @@ spring:
       ddl-auto: update
       temp.use_jdbc_metadata_defaults: false
       jdbc.lab.non_contextual_creation: true
+  data:
+    redis:
+      host: localhost
+      port: 6379

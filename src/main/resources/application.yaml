@@ -5,11 +5,11 @@ logging:
     jdbc.sqlonly: debug
     org.hibernate.SQL: debug
     org.hibernate.type.descriptor.sql: debug
-#    org:
-#      springframework:
-#        web:
-#          filter:
-#            CommonsRequestLoggingFilter: debug
+    org:
+      springframework:
+        web:
+          filter:
+            CommonsRequestLoggingFilter: debug
 #        security: DEBUG
 
   pattern:

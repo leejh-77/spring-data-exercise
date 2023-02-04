@@ -1,7 +1,7 @@
 package app
 
-import app.jpa.BookRepository
-import app.jpa.BookService
+import app.service.jpa.BookRepository
+import app.service.jpa.BookService
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class SpringDataTest @Autowired constructor(
+class JpaTest @Autowired constructor(
     private val bookService: BookService,
     private val bookRepository: BookRepository,
     private val testEnv: TestEnv
@@ -18,16 +18,17 @@ class SpringDataTest @Autowired constructor(
 
     @BeforeAll
     fun beforeAll() {
-        this.testEnv.createTestData()
+        this.testEnv.createTestBooks()
     }
 
     @Test
     fun `test transaction requires new`() {
         try {
-            this.bookService.removeAllBooks()
+            this.bookService.removeAll()
         } catch (e: Error) {
             println("Error occured")
         }
         println(this.bookRepository.count())
     }
+
 }
