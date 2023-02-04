@@ -1,0 +1,84 @@
+logging:
+  level:
+    sql: debug
+    jdbc: debug
+    jdbc.sqlonly: debug
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql: debug
+#    org:
+#      springframework:
+#        web:
+#          filter:
+#            CommonsRequestLoggingFilter: debug
+#        security: DEBUG
+
+  pattern:
+    console: "%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] [%F - %M] [%logger{0}:%line] - %msg%n"
+    file: "%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] [%F - %M] [%logger{0}:%line] - %msg%n"
+
+#management.security.enabled: false
+#security.basic.enabled: false
+
+server:
+  port: 8080
+  contextPath: "/"
+  compression:
+    enabled: true # ?? ?? ?? ??.
+    min-response-size: 2048
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript
+
+
+spring:
+  sql.init:
+    mode: always
+    schema-locations: classpath*:db/books/schema.sql
+#    data-locations: classpath*:db/${database}/data.sql
+  session:
+    store-type: none  # Session ?? ?? StoreType ??.
+    timeout: 3600     # Session timeout.
+
+
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost/jonghoon}
+    username: ${POSTGRES_USER:jonghoon}
+    password: ${POSTGRES_PASSWORD:jonghoon}
+
+  jpa:
+    #    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+      # open-in-view: true(=default) ? ??, ?? Controller API ? ????? Transaction ? ????.
+      #               ?, API ??? ? ??? ??? ??, ? ???? DB Connection ? ???? ??? ??.
+      #               ???? ????? true? ????.
+    # open-in-view: false ? ????, ???? @Transactional ??? ????.
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+      temp.use_jdbc_metadata_defaults: false
+      jdbc.lab.non_contextual_creation: true
+
+#    properties:
+#      ### @Cacheable ? ??? Entity ? cache ??? ??.
+#      javax.persistence.sharedCache.mode: ENABLE_SELECTIVE
+#
+#      hibernate:
+#        ### to disable camelCase
+#        # physical_naming_strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#
+#        format_sql: true
+#
+#        ### default schema for entity.
+#        default_schema: eip_edge
+#
+#        # Hibernate cache ??.
+#        #--------------------------
+#
+#        ### @Cacheable ? ?? ?? Cache ??, false ? ??, @Cache ???? region ?? ?? (see CacheConfig)
+#        javax.cache.missing_cache_strategy: create
+#        cache:
+#          ### true: 2nd level cache ???.
+#          use_second_level_cache: true
+#          use_query_cache: true
+#          ### jcache ???
+#          region.factory_class: org.hibernate.cache.jcache.internal.JCacheRegionFactory
+#          ### hibernate-ehcache ???
+#          # region.factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory

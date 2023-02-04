@@ -1,0 +1,40 @@
+logging:
+  level:
+    sql: debug
+    jdbc: debug
+    jdbc.sqlonly: debug
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql: debug
+
+  pattern:
+    console: "%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] [%F - %M] [%logger{0}:%line] - %msg%n"
+    file: "%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] [%F - %M] [%logger{0}:%line] - %msg%n"
+
+server:
+  port: 8080
+  contextPath: "/"
+  compression:
+    enabled: true # 응답 결과 압축 허용.
+    min-response-size: 2048
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript
+
+spring:
+  sql.init:
+    mode: always
+    schema-locations: classpath*:db/books/schema.sql
+  session:
+    store-type: none  # Session 저장 유형 StoreType 참조.
+    timeout: 3600     # Session timeout.
+
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost/jonghoon}
+    username: ${POSTGRES_USER:jonghoon}
+    password: ${POSTGRES_PASSWORD:jonghoon}
+
+  jpa:
+    show-sql: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+      temp.use_jdbc_metadata_defaults: false
+      jdbc.lab.non_contextual_creation: true
